@@ -2,7 +2,7 @@
     class Genre {
         public $name;
 
-        public function __costruct($name){
+        public function __construct($name){
             $this->name = $name;
         }
     }
@@ -15,7 +15,7 @@
         public $rating;
 
         //creo un costruttore
-        public function __construct($title, $year, Genre $genre, $length){
+        public function __construct($title, $year,$genre, $length){
             $this->title = $title;
             $this->year = $year;
             $this->genre = $genre;
@@ -24,22 +24,38 @@
 
         //creo un metodo
         public function getMovieDetails(){
-            $string = "Movie: ".$this->title.", Genre: ".$this->genre->name.", Year: ".$this->year.", Length: ".$this->length;
+            $string = "Movie: ".$this->title.", Genre: ".$this->get_genres_as_string().", Year: ".$this->year.", Length: ".$this->length;
 
-            if($this->rating != NULL){
+            if($this->rating !== NULL){
                 $string.= ", Rating: ".$this->rating;
             }
 
             return $string;
         }
+        public function get_genres_as_string(){
+            $genres = [];
+            foreach($this->genre as $genre){
+                //creo un array vuoto per i nomi delle istanze della classe genre
+                array_push($genres, $genre->name);
+            }
+
+            $genres_string = implode(', ', $genres);
+            return $genres_string;
+        }
     }
+
+    $genres = [
+        new Genre ('Azione'),
+        new Genre ('Pulp'),
+        new Genre ('Thriller')
+    ];
 
 
     //creo due oggetti movie
-    $v_per_vendetta = new Movie ("V per Vendetta", "2006", new Genre ('Azione'), 126); //da rincontrollare in base ai parametriù
+    $v_per_vendetta = new Movie ("V per Vendetta", "2006", $genres, 126); //da rincontrollare in base ai parametriù
     $v_per_vendetta->rating = 8;
 
-    $pulp_fiction = new Movie ('Pulp Fiction', "1994", new Genre('pulp'), 150);
+    $pulp_fiction = new Movie ('Pulp Fiction', "1994", $genres, 150);
     //var_dump($v_per_vendetta); per controllare non abbia errori
 
     echo $v_per_vendetta->getMovieDetails();
