@@ -24,7 +24,7 @@
 
         //creo un metodo
         public function getMovieDetails(){
-            $string = "Movie: ".$this->title.", Genre: ".$this->genre.", Year: ".$this->year.", Length: ".$this->length;
+            $string = "Movie: ".$this->title.", Genre: ".$this->genre->name.", Year: ".$this->year.", Length: ".$this->length;
 
             if($this->rating != NULL){
                 $string.= ", Rating: ".$this->rating;
@@ -36,8 +36,15 @@
 
 
     //creo due oggetti movie
-    $movie1 = new Movie ("Il Signore degli Anelli", "Fantasy", 9.9);
-    $movie2 = new Movie ("Inception", "Thriller", 8.7);
+    $v_per_vendetta = new Movie ("V per Vendetta", "2006", new Genre ('Azione'), 126); //da rincontrollare in base ai parametriù
+    $v_per_vendetta->rating = 8;
+
+    $pulp_fiction = new Movie ('Pulp Fiction', "1994", new Genre('pulp'), 150);
+    //var_dump($v_per_vendetta); per controllare non abbia errori
+
+    echo $v_per_vendetta->getMovieDetails();
+    echo "<br/>";
+    echo $pulp_fiction->getMovieDetails();
 ?>
 
 <!DOCTYPE html>
